@@ -8,9 +8,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -72,24 +72,20 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        Log.d("NavigationItemSelected", "ASD "+id);
+        System.out.println("HOLA");
 
-        Intent intent = new Intent(this, RegarActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);;
+
+        if (id == R.id.nav_regar_ahora) {
+            intent = new Intent(this, RegarAhoraActivity.class);
+        }else if (id == R.id.nav_estadisticas) {
+            intent = new Intent(this, RiegosActivity.class);
+        }else if (id == R.id.nav_periodos) {
+            //intent = new Intent(this, PeriodosActivity.class);
+        }
+
         startActivity(intent);
-
-
-        /*if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

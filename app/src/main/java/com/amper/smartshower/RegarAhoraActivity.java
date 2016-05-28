@@ -3,11 +3,11 @@ package com.amper.smartshower;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class RegarActivity extends Activity {
+public class RegarAhoraActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_regar);
+        setContentView(R.layout.activity_regar_ahora);
     }
 }
