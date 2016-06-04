@@ -1,89 +1,79 @@
 package com.amper.smartshower;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-import com.amper.smartshower.rest.Riegos;
+import com.amper.smartshower.rest.RestUtil;
+import com.amper.smartshower.rest.Riego;
+import com.amper.smartshower.util.Util;
 
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RiegosActivity extends Activity {
+
+    private ListView riegosListView;
+    private ArrayAdapter arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_riegos);
-
+        riegosListView = (ListView) findViewById(R.id.riegos_list);
     }
 
 
     public void obtenerRiegos(View v){
-        Log.d("obtenerRiegos", "SOY OBTENER RIEGOS");
+        try {
+            Log.d("obtenerRiegos", "SOY OBTENER RIEGOS");
+            List riegos = doObtenerRiegos();
 
-        TextView tv = (TextView)findViewById(R.id.txtRiegos);
-        tv.setText("Welcome to android");
+            arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Util.getStringArray(riegos));
+            riegosListView.setAdapter(arrayAdapter);
 
-        new HttpRequestTask().execute();
-
-    }
-
-
-    /**
-     * TESTING
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.activity_riegos, container, false);
-            return rootView;
+        }catch (Exception e){
+            Log.d("obtenerRiegos", e.getMessage());
         }
     }
-    private class HttpRequestTask extends AsyncTask<Void, Void, Riegos> {
-        @Override
-        protected Riegos doInBackground(Void... params) {
-            Log.d("doInBackground", "SOY doInBackground");
-            try {
-                final String url = "http://rest-service.guides.spring.io/greeting";
-                RestTemplate restTemplate = new RestTemplate();
-                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                Riegos greeting = restTemplate.getForObject(url, Riegos.class);
-                return greeting;
-            } catch (Exception e) {
-                Log.e("MainActivity", e.getMessage(), e);
+
+    private List<Riego> doObtenerRiegos() throws Exception{
+        String data = RestUtil.getJSON(Util.URL_GET_RIEGOS, 3000);
+
+        Log.d("obtenerRiegos", "TERMINE GET JSON");
+
+        if(data == null){
+            throw new Exception("Request Failed");
+        }
+
+        try {
+            List riegosList = new ArrayList();
+            Log.d("obtenerRiegos", "DATA:"+data.trim());
+
+            JSONObject jRiegos = new JSONObject(data.trim());
+            JSONArray jRiegosList =  (JSONArray)jRiegos.get(Util.KEY_RIEGOS_LIST);
+
+            int totalRiegos = jRiegosList.length(); // get totalCount of all jsonObjects
+
+            Log.d("obtenerRiegos", "A");
+            for(int i=0 ; i< totalRiegos; i++){   // iterate through jsonArray
+                Log.d("obtenerRiegos", ""+i);
+                JSONObject jRiego = jRiegosList.getJSONObject(i);  // get jsonObject @ i position
+                riegosList.add(new Riego(jRiego.get(Riego.COL_ID).toString(), jRiego.get(Riego.COL_CONTENT).toString(), jRiego.get(Riego.COL_FECHA_RIEGO).toString()));
             }
 
-            return null;
+            Log.d("obtenerRiegos", "B");
+            return riegosList;
+        } catch(JSONException ex){
+            throw new Exception(ex);
         }
-
-        @Override
-        protected void onPostExecute(Riegos greeting) {
-            Log.d("onPostExecute", "SOY onPostExecute");
-            TextView greetingIdText = (TextView) findViewById(R.id.id_value);
-            TextView greetingContentText = (TextView) findViewById(R.id.content_value);
-
-            greetingIdText.setText(greeting.getId());
-            greetingContentText.setText(greeting.getContent());
-
-            Log.d("onPostExecute", "greetingIdText:"+greetingIdText);
-            Log.d("onPostExecute", "greetingContentText:"+greetingContentText);
-        }
-
     }
+
 }
