@@ -1,5 +1,8 @@
 package com.amper.smartshower.util;
 
+import android.os.Bundle;
+import android.os.Message;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,5 +37,12 @@ public class Util {
             index++;
         }
         return array;
+    }
+
+    public static Message createHandlerMessage(Message hndMessage, String msg){
+        Bundle b = new Bundle();
+        b.putString("message", msg);
+        hndMessage.setData(b);
+        return hndMessage;
     }
 }
