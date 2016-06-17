@@ -1,6 +1,11 @@
 package com.amper.smartshower;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -20,19 +25,33 @@ import com.amper.smartshower.thread.MovingThread;
 import com.amper.smartshower.util.Util;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
 
+    // Threads
     private LocationThread locationThread;
     private MovingThread movingThread;
+
+    //Sensors
+    private SensorManager senSensorManager;
+
+    // Sensors - Acelerometer
+    private Sensor senAccelerometer;
+    private long lastUpdate = 0;
+    private float last_x, last_y, last_z;
+    private static final int SHAKE_RIEGO = 2100;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupContext();
-        setupThreads();
+        //setupThreads();
+        setupSensors();
 
-        testHandlers();
+        //testHandlers();
     }
 
     @Override
@@ -73,9 +92,6 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        Log.d("NavigationItemSelected", "ASD "+id);
-        System.out.println("HOLA");
-
         Intent intent = new Intent(this, MainActivity.class);;
 
         if (id == R.id.nav_regar_ahora) {
@@ -92,6 +108,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     private void setupContext(){
         if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -120,8 +137,64 @@ public class MainActivity extends AppCompatActivity
        movingThread.start();
     }
 
+    private void setupSensors(){
+        senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+        senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        senSensorManager.registerListener(this, senAccelerometer , SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
     public void testHandlers(){
         Handler hnd = locationThread.getThreadHandler();
         hnd.sendMessage(Util.createHandlerMessage(hnd.obtainMessage(), "HOLIS!!!"));
     }
+
+
+    // SENSOR METHODS
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        Sensor mySensor = sensorEvent.sensor;
+
+        if (mySensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            float x = sensorEvent.values[0];
+            float y = sensorEvent.values[1];
+            float z = sensorEvent.values[2];
+
+            long curTime = System.currentTimeMillis();
+
+            if ((curTime - lastUpdate) > 100) {
+                long diffTime = (curTime - lastUpdate);
+                lastUpdate = curTime;
+
+                float speed = Math.abs(x + y + z - last_x - last_y - last_z)/ diffTime * 10000;
+
+                if (speed > SHAKE_RIEGO) {
+                    Log.d("onSensorChanged", "SHAKING!!!!!!!!!!!! - "+speed);
+
+                    Intent intent = new Intent(this, RegarAhoraActivity.class);
+                    startActivity(intent);
+                }
+
+                last_x = x;
+                last_y = y;
+                last_z = z;
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    protected void onPause() {
+        super.onPause();
+        senSensorManager.unregisterListener(this);
+    }
+    protected void onResume() {
+        super.onResume();
+        senSensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+
 }
