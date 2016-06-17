@@ -1,14 +1,19 @@
 package com.amper.smartshower;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,6 +25,7 @@ import android.view.MenuItem;
 
 import android.os.StrictMode;
 
+import com.amper.smartshower.location.RiegosLocationListener;
 import com.amper.smartshower.thread.LocationThread;
 import com.amper.smartshower.thread.MovingThread;
 import com.amper.smartshower.util.Util;
@@ -40,8 +46,9 @@ public class MainActivity extends AppCompatActivity
     private float last_x, last_y, last_z;
     private static final int SHAKE_RIEGO = 2100;
 
-
-
+    //Sensors - GPS
+    LocationListener riegosLocationListener;
+    LocationManager riegosLocationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +57,8 @@ public class MainActivity extends AppCompatActivity
         setupContext();
         //setupThreads();
         setupSensors();
-
         //testHandlers();
+
     }
 
     @Override
@@ -138,10 +145,20 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setupSensors(){
+        // Accelerometer
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         senSensorManager.registerListener(this, senAccelerometer , SensorManager.SENSOR_DELAY_NORMAL);
+
+        //GPS
+        riegosLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        riegosLocationListener = RiegosLocationListener.createInstance(getApplicationContext());
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        riegosLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, riegosLocationListener);
     }
 
     public void testHandlers(){
