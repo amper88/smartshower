@@ -17,9 +17,10 @@ public class Util {
 
     public static Date getDate(String dateStr){
         //String s = "03/24/2013 21:54";
+        Date date = null;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH.mm.ss");
         try{
-            Date date = simpleDateFormat.parse(dateStr);
+            date = simpleDateFormat.parse(dateStr);
             System.out.println("date : "+simpleDateFormat.format(date));
             return date;
         }
@@ -45,4 +46,6 @@ public class Util {
         hndMessage.setData(b);
         return hndMessage;
     }
+
+
 }

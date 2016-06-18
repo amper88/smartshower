@@ -9,13 +9,21 @@ import android.widget.ListView;
 
 import com.amper.smartshower.rest.RestUtil;
 import com.amper.smartshower.rest.Riego;
+import com.amper.smartshower.util.DateComparator;
+import com.amper.smartshower.util.Grafico;
 import com.amper.smartshower.util.Util;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RiegosActivity extends Activity {
@@ -34,10 +42,33 @@ public class RiegosActivity extends Activity {
     public void obtenerRiegos(View v){
         try {
             Log.d("obtenerRiegos", "SOY OBTENER RIEGOS");
-            List riegos = doObtenerRiegos();
+            List<Riego> riegos = doObtenerRiegos();
 
-            arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Util.getStringArray(riegos));
-            riegosListView.setAdapter(arrayAdapter);
+            /*
+            List<Riego> riegos = new ArrayList<Riego>();
+
+            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.22 13.07.11")));
+            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.22 13.07.11")));
+            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.23 13.07.11")));
+            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.23 13.07.11")));
+            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.23 13.07.11")));
+            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.25 13.07.11")));
+            */
+
+            Collections.sort(riegos,new DateComparator());
+
+            //Creamos la grafica vacia
+            BarChart grafica = new BarChart(getApplicationContext());
+            setContentView(grafica);
+
+            Grafico grafico = new Grafico(riegos, grafica);
+
+            //Cargar la grafica y mostrarla
+            grafico.drawBarChart(grafico.getBarChart());
+
+            //Se comenta para mostrar la barra en vez del listView
+//            arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Util.getStringArray(riegos));
+//            riegosListView.setAdapter(arrayAdapter);
 
         }catch (Exception e){
             Log.d("obtenerRiegos", e.getMessage());
