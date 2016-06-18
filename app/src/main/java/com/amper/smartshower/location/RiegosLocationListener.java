@@ -54,7 +54,8 @@ public class RiegosLocationListener implements LocationListener{
             //muestro en pantalla mis coordenadas y la distancia
 
             Toast.makeText(this.appContext, "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude() +" Distancia: "+distancia+"mts.",Toast.LENGTH_LONG).show();
-            Log.d("onLocationChanged", "MOVIENDOOOO ");
+            Log.d("onLocationChanged", "MOVIENDOOOO " + "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude() +" Distancia: "+distancia+"mts.");
+
 
         }
 

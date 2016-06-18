@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
 
         if (gpsPermissionGranted) {
-            riegosLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, riegosLocationListener);
+            riegosLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, riegosLocationListener);
             Log.d("onSensorChanged", "GRANTEDDDD");
         }else{
             Log.d("onSensorChanged", "ERROR!!!!!!!!!!!! - ");
