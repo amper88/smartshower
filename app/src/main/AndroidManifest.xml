@@ -3,7 +3,12 @@
     package="com.amper.smartshower">
 
     <uses-permission android:name="android.permission.INTERNET" />
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+=======
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+>>>>>>> 96919a880ed9c4f827438315d9e77dfd11e6c3c8
 
     <application
         android:allowBackup="true"
