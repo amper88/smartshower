@@ -154,12 +154,21 @@ public class MainActivity extends AppCompatActivity
         //GPS
         riegosLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         riegosLocationListener = RiegosLocationListener.createInstance(getApplicationContext());
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+        boolean gpsPermissionGranted = (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+
+        if (gpsPermissionGranted) {
+            riegosLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, riegosLocationListener);
+            Log.d("onSensorChanged", "GRANTEDDDD");
+        }else{
+            Log.d("onSensorChanged", "ERROR!!!!!!!!!!!! - ");
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 200);
             return;
         }
 
-        riegosLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, riegosLocationListener);
     }
+
 
     public void testHandlers(){
         Handler hnd = locationThread.getThreadHandler();

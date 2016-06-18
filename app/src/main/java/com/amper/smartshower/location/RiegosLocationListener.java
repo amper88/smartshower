@@ -5,6 +5,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -53,6 +54,7 @@ public class RiegosLocationListener implements LocationListener{
             //muestro en pantalla mis coordenadas y la distancia
 
             Toast.makeText(this.appContext, "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude() +" Distancia: "+distancia+"mts.",Toast.LENGTH_LONG).show();
+            Log.d("onLocationChanged", "MOVIENDOOOO ");
 
         }
 
@@ -65,7 +67,7 @@ public class RiegosLocationListener implements LocationListener{
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {
-
+            Log.d("onLocationChanged", "CAMBIO ESTADO!");
         }
 
 
