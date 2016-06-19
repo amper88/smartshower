@@ -1,5 +1,8 @@
 package com.amper.smartshower.util;
 
+import android.os.Bundle;
+import android.view.Menu;
+
 import com.amper.smartshower.rest.Riego;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -81,8 +84,12 @@ public class Grafico {
         //Aplicamos una animación al eje Y
         grafica.animateXY(5000,5000);
 
+        // scaling can now only be done on x- and y-axis separately
+        grafica.setPinchZoom(false);
+
         //Guardar el gráfico como jpg en la SD
         //grafica.isSaveEnabled();
         //grafica.saveToGallery("riegoExample.jpg",85);
     }
+
 }

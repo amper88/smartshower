@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        Intent intent = new Intent(this, MainActivity.class);;
+        Intent intent = new Intent(this, MainActivity.class);
 
         if (id == R.id.nav_regar_ahora) {
             intent = new Intent(this, RegarAhoraActivity.class);
