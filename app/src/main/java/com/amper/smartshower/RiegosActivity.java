@@ -3,8 +3,6 @@ package com.amper.smartshower;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -12,13 +10,7 @@ import android.widget.ListView;
 import com.amper.smartshower.rest.RestUtil;
 import com.amper.smartshower.rest.Riego;
 import com.amper.smartshower.util.DateComparator;
-import com.amper.smartshower.util.Grafico;
 import com.amper.smartshower.util.Util;
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,18 +51,9 @@ public class RiegosActivity extends Activity {
 
             Collections.sort(riegos,new DateComparator());
 
-            //Creamos la grafica vacia
-            BarChart grafica = new BarChart(getApplicationContext());
-            setContentView(grafica);
-
-            Grafico grafico = new Grafico(riegos, grafica);
-
-            //Cargar la grafica y mostrarla
-            grafico.drawBarChart(grafico.getBarChart());
-
             //Se comenta para mostrar la barra en vez del listView
-//            arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Util.getStringArray(riegos));
-//            riegosListView.setAdapter(arrayAdapter);
+            arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Util.getStringArray(riegos));
+            riegosListView.setAdapter(arrayAdapter);
 
         }catch (Exception e){
             Log.d("obtenerRiegos", e.getMessage());

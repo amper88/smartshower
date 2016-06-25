@@ -28,6 +28,7 @@ import android.os.StrictMode;
 import com.amper.smartshower.location.RiegosLocationListener;
 import com.amper.smartshower.thread.LocationThread;
 import com.amper.smartshower.thread.MovingThread;
+import com.amper.smartshower.util.Grafico;
 import com.amper.smartshower.util.Util;
 
 public class MainActivity extends AppCompatActivity
@@ -105,7 +106,10 @@ public class MainActivity extends AppCompatActivity
             intent = new Intent(this, RegarAhoraActivity.class);
         }else if (id == R.id.nav_estadisticas) {
             intent = new Intent(this, RiegosActivity.class);
-        }else if (id == R.id.nav_periodos) {
+        }else if (id == R.id.nav_grafico) {
+            intent = new Intent(this, GraficoActivity.class);
+        }
+        else if (id == R.id.nav_periodos) {
             //intent = new Intent(this, PeriodosActivity.class);
         }
 
@@ -221,6 +225,5 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         senSensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
-
 
 }

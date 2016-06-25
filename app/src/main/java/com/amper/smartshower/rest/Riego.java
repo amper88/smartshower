@@ -42,7 +42,7 @@ public class Riego implements Comparable<Riego> {
     }
 
     public String getAnioMesDiaRiego() {
-        return this.getFechaRiegoString().substring(0,10);
+        return this.getFechaRiegoString().substring(0,10).toString();
     }
 
     public String toString(){
@@ -56,9 +56,9 @@ public class Riego implements Comparable<Riego> {
 
         return añoMesDiaR1.compareTo(añoMesDiaR2);
     }
-/*
+
     // Overriding the compare method to sort the age
     public int compare(Riego r1, Riego r2){
         return r1.getFechaRiego().compareTo(r2.getFechaRiego());
-    }*/
+    }
 }

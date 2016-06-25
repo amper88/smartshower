@@ -6,6 +6,10 @@ configurations.compile {
     exclude module: 'commons-logging'
 }
 
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
@@ -15,8 +19,8 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.2'
     compile 'javax.json:javax.json-api:1.0'
     compile files('libs/mpandroidchartlibrary-2-2-4.jar')
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 }
-
 
 android {
     compileSdkVersion 23

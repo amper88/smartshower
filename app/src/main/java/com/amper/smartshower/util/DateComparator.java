@@ -13,6 +13,7 @@ public class DateComparator implements Comparator<Riego> {
         String añoMesDiaR1 = r1.getAnioMesDiaRiego();
         String añoMesDiaR2 = r2.getAnioMesDiaRiego();
 
-        return añoMesDiaR1.compareTo(añoMesDiaR2);
+        //Horrible pero el -1 para que ordene de menor a mayor
+        return añoMesDiaR1.compareTo(añoMesDiaR2)*-1;
     }
 }

@@ -1,7 +1,9 @@
 package com.amper.smartshower.util;
 
-import android.os.Bundle;
-import android.view.Menu;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 
 import com.amper.smartshower.rest.Riego;
 import com.github.mikephil.charting.charts.BarChart;
@@ -25,6 +27,7 @@ public class Grafico {
     private ArrayList<BarEntry> entradas;
     private ArrayList<String> etiquetas;
     private BarChart grafica;
+    private Boolean permissionLoadOk;
 
     public Grafico( List<Riego> riegos, BarChart graficBar ) {
         this.cantMeasurementDay = 0;
@@ -34,6 +37,9 @@ public class Grafico {
         entradas = new ArrayList<>();
         etiquetas = new ArrayList<String>();
         grafica = graficBar;
+        permissionLoadOk = false;
+
+        //setupPermisionGraficLoadSD();
     }
 
     public BarChart getBarChart() {
@@ -85,11 +91,13 @@ public class Grafico {
         grafica.animateXY(5000,5000);
 
         // scaling can now only be done on x- and y-axis separately
-        grafica.setPinchZoom(false);
+        grafica.setPinchZoom(true);
 
         //Guardar el gráfico como jpg en la SD
-        //grafica.isSaveEnabled();
-        //grafica.saveToGallery("riegoExample.jpg",85);
+        if(this.permissionLoadOk == true) {
+            grafica.isSaveEnabled();
+            grafica.saveToGallery("riegoExample.jpg", 85);
+        }
     }
 
 }
