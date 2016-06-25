@@ -2,20 +2,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
-    <ListView
-        android:id="@+id/riegos_list"
-        android:layout_width="match_parent"
-        android:layout_height="477dp" >
-    </ListView>
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Riegos"
+        android:text="Clic here to show  Log Riegos"
         android:id="@+id/btnRiegos"
         android:layout_marginBottom="54dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="obtenerRiegos" />
+        android:onClick="obtenerRiegos"
+        android:singleLine="true" />
+
+    <ListView
+        android:id="@+id/riegos_list"
+        android:layout_width="match_parent"
+        android:layout_height="556dp"
+        android:layout_weight="1.49">
+    </ListView>
+
 </LinearLayout>

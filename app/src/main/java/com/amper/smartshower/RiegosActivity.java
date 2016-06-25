@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.amper.smartshower.rest.RestUtil;
 import com.amper.smartshower.rest.Riego;
+import com.amper.smartshower.util.DateComparator;
 import com.amper.smartshower.util.Util;
 
 import org.json.JSONArray;
@@ -16,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RiegosActivity extends Activity {
@@ -34,8 +36,22 @@ public class RiegosActivity extends Activity {
     public void obtenerRiegos(View v){
         try {
             Log.d("obtenerRiegos", "SOY OBTENER RIEGOS");
-            List riegos = doObtenerRiegos();
+            List<Riego> riegos = doObtenerRiegos();
 
+            /*
+            List<Riego> riegos = new ArrayList<Riego>();
+
+            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.22 13.07.11")));
+            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.22 13.07.11")));
+            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.23 13.07.11")));
+            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.23 13.07.11")));
+            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.23 13.07.11")));
+            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.25 13.07.11")));
+            */
+
+            Collections.sort(riegos,new DateComparator());
+
+            //Se comenta para mostrar la barra en vez del listView
             arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Util.getStringArray(riegos));
             riegosListView.setAdapter(arrayAdapter);
 
@@ -62,14 +78,15 @@ public class RiegosActivity extends Activity {
 
             int totalRiegos = jRiegosList.length(); // get totalCount of all jsonObjects
 
-            Log.d("obtenerRiegos", "A");
             for(int i=0 ; i< totalRiegos; i++){   // iterate through jsonArray
-                Log.d("obtenerRiegos", ""+i);
-                JSONObject jRiego = jRiegosList.getJSONObject(i);  // get jsonObject @ i position
-                riegosList.add(new Riego(jRiego.get(Riego.COL_ID).toString(), jRiego.get(Riego.COL_CONTENT).toString(), jRiego.get(Riego.COL_FECHA_RIEGO).toString()));
+                JSONObject jRiego = jRiegosList.getJSONObject(i);
+
+                if(!Riego.esRegando(jRiego.get(Riego.COL_ACTION).toString())) continue;
+
+                Riego r = new Riego(String.valueOf(i), jRiego.get(Riego.COL_FECHA_RIEGO).toString());
+                riegosList.add(r);
             }
 
-            Log.d("obtenerRiegos", "B");
             return riegosList;
         } catch(JSONException ex){
             throw new Exception(ex);
