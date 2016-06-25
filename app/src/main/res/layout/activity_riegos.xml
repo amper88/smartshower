@@ -8,7 +8,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Clic here to show  Log Riegos"
+        android:text="Mostrar Riegos"
         android:id="@+id/btnRiegos"
         android:layout_marginBottom="54dp"
         android:layout_alignParentBottom="true"

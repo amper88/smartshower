@@ -1,10 +1,13 @@
 package com.amper.smartshower;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.EditText;
@@ -47,6 +50,11 @@ public class RegarAhoraActivity extends Activity {
     public void doRegarAhora() {
         TextView t = (TextView)findViewById(R.id.txtRegando);
         t.setText("¡¡REGANDO!!");
+
+        WebView wv = (WebView)findViewById(R.id.webViewRegando);
+        wv.setBackgroundColor(Color.TRANSPARENT);
+        wv.loadUrl("file:///android_asset/regando.gif");
+
 
         String data = RestUtil.getJSON(Util.URL_START_ACTION, 3000);
         Log.d("doRegarAhora", "TERMINE GET JSON");

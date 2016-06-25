@@ -29,7 +29,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class GraficoActivity extends Activity implements OnChartValueSelectedListener {
+public class GraficoActivity extends HistoricalActivity implements OnChartValueSelectedListener {
 
     protected BarChart grafica;
     private List<Riego> riegos;
@@ -132,39 +132,6 @@ public class GraficoActivity extends Activity implements OnChartValueSelectedLis
             e.printStackTrace();
         }
             return new BarData();
-    }
-
-    private List<Riego> doObtenerRiegos() throws Exception{
-        String data = RestUtil.getJSON(Util.URL_GET_RIEGOS, 3000);
-
-        Log.d("obtenerRiegos", "TERMINE GET JSON");
-
-        if(data == null){
-            throw new Exception("Request Failed");
-        }
-
-        try {
-            List riegosList = new ArrayList();
-            Log.d("obtenerRiegos", "DATA:"+data.trim());
-
-            JSONObject jRiegos = new JSONObject(data.trim());
-            JSONArray jRiegosList =  (JSONArray)jRiegos.get(Util.KEY_RIEGOS_LIST);
-
-            int totalRiegos = jRiegosList.length(); // get totalCount of all jsonObjects
-
-            for(int i=0 ; i< totalRiegos; i++){   // iterate through jsonArray
-                JSONObject jRiego = jRiegosList.getJSONObject(i);
-
-                if(!Riego.esRegando(jRiego.get(Riego.COL_ACTION).toString())) continue;
-
-                Riego r = new Riego(String.valueOf(i), jRiego.get(Riego.COL_FECHA_RIEGO).toString());
-                riegosList.add(r);
-            }
-
-            return riegosList;
-        } catch(JSONException ex){
-            throw new Exception(ex);
-        }
     }
 
     public void configBarChart() {
