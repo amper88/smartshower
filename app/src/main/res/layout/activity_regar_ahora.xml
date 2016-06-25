@@ -14,18 +14,19 @@
         android:layout_height="wrap_content"
         android:text="Regar AHORA"
         android:id="@+id/btnRegar"
-        android:onClick="myClickMethod"
+        android:onClick="regarAhoraAction"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="146dp" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/txtRegando"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="96dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="85dp"
+        android:textSize="60dp" />
+
 </RelativeLayout>
