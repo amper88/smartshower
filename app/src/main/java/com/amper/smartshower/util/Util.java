@@ -20,14 +20,9 @@ public class Util {
 
     public static Date getDate(String dateStr){
         //String s = "03/24/2013 21:54";
-<<<<<<< HEAD
-        Date date = null;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH.mm.ss");
-=======
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
->>>>>>> develop
         try{
-            date = simpleDateFormat.parse(dateStr);
+            Date date = simpleDateFormat.parse(dateStr);
             System.out.println("date : "+simpleDateFormat.format(date));
             return date;
         }

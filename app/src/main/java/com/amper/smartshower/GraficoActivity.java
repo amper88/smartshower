@@ -152,14 +152,15 @@ public class GraficoActivity extends Activity implements OnChartValueSelectedLis
 
             int totalRiegos = jRiegosList.length(); // get totalCount of all jsonObjects
 
-            Log.d("obtenerRiegos", "A");
             for(int i=0 ; i< totalRiegos; i++){   // iterate through jsonArray
-                Log.d("obtenerRiegos", ""+i);
-                JSONObject jRiego = jRiegosList.getJSONObject(i);  // get jsonObject @ i position
-                riegosList.add(new Riego(jRiego.get(Riego.COL_ID).toString(), jRiego.get(Riego.COL_CONTENT).toString(), jRiego.get(Riego.COL_FECHA_RIEGO).toString()));
+                JSONObject jRiego = jRiegosList.getJSONObject(i);
+
+                if(!Riego.esRegando(jRiego.get(Riego.COL_ACTION).toString())) continue;
+
+                Riego r = new Riego(String.valueOf(i), jRiego.get(Riego.COL_FECHA_RIEGO).toString());
+                riegosList.add(r);
             }
 
-            Log.d("obtenerRiegos", "B");
             return riegosList;
         } catch(JSONException ex){
             throw new Exception(ex);

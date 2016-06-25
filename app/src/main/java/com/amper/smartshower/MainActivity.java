@@ -1,11 +1,6 @@
 package com.amper.smartshower;
-<<<<<<< HEAD
- 
-=======
-
 import android.Manifest;
 import android.content.Context;
->>>>>>> 6ff07106babfc6d6a85155f31a3ecda04b0f1f5b
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
