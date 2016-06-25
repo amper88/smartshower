@@ -24,13 +24,10 @@ public class Riego implements Comparable<Riego> {
 
     }
 
-<<<<<<< HEAD
-=======
     public Riego(String id, String fechaRiego){
         this(id,"",fechaRiego);
     }
 
->>>>>>> develop
     public Riego(String id, String content, String fechaRiego){
         this.id = id;
         this.content = content;
@@ -60,7 +57,6 @@ public class Riego implements Comparable<Riego> {
         return this.id+" "+this.content+" "+this.fechaRiego;
     }
 
-<<<<<<< HEAD
     // Overriding the compareTo method
     public int compareTo(Riego r){
         String añoMesDiaR1 = this.getAnioMesDiaRiego();
@@ -70,11 +66,11 @@ public class Riego implements Comparable<Riego> {
     }
 
     // Overriding the compare method to sort the age
-    public int compare(Riego r1, Riego r2){
+    public int compare(Riego r1, Riego r2) {
         return r1.getFechaRiego().compareTo(r2.getFechaRiego());
-=======
+    }
+
     public static boolean esRegando(String value){
         return Riego.REGANDO.equals(value);
->>>>>>> develop
     }
 }
