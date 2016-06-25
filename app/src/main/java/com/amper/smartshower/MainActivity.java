@@ -28,7 +28,6 @@ import android.os.StrictMode;
 import com.amper.smartshower.location.RiegosLocationListener;
 import com.amper.smartshower.thread.LocationThread;
 import com.amper.smartshower.thread.MovingThread;
-import com.amper.smartshower.util.Grafico;
 import com.amper.smartshower.util.Util;
 
 public class MainActivity extends AppCompatActivity
