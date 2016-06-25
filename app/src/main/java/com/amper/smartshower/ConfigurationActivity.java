@@ -16,12 +16,19 @@ public class ConfigurationActivity extends Activity {
         setContentView(R.layout.activity_configuration);
 
         EditText editTextStartAction = (EditText) findViewById(R.id.EditTextNameStartAction);
-        editTextStartAction.setHint("Ingrese URL de comienzo de riego");
         editTextStartAction.setText(GlobalConfigurationSingleton.getInstance().getUrlStartAction());
 
         EditText editTextGetHistoricalData = (EditText) findViewById(R.id.EditTextNameGetHistoricalData);
-        editTextGetHistoricalData.setHint("Ingrese URL de datos historicos");
         editTextGetHistoricalData.setText(GlobalConfigurationSingleton.getInstance().getUrlGetRiegos());
+
+        EditText edLatitud = (EditText) findViewById(R.id.EditTextLatitud);
+        edLatitud.setText(""+GlobalConfigurationSingleton.getInstance().getLatitud());
+
+        EditText edLongitud = (EditText) findViewById(R.id.EditTextLongitud);
+        edLongitud.setText(""+GlobalConfigurationSingleton.getInstance().getLongitud());
+
+        EditText edDistancia = (EditText) findViewById(R.id.EditTextDistancia);
+        edDistancia.setText(""+GlobalConfigurationSingleton.getInstance().getDistancia());
     }
 
     public void saveConfigurationAction(View v) {
@@ -30,6 +37,16 @@ public class ConfigurationActivity extends Activity {
 
         EditText editTextGetHistoricalData = (EditText)findViewById(R.id.EditTextNameGetHistoricalData);
         GlobalConfigurationSingleton.getInstance().setUrlGetRiegos(editTextGetHistoricalData.getText().toString());
+
+        EditText edLatitud = (EditText)findViewById(R.id.EditTextLatitud);
+        GlobalConfigurationSingleton.getInstance().setLatitud(Double.parseDouble(edLatitud.getText().toString()));
+
+        EditText edLongitud = (EditText)findViewById(R.id.EditTextLongitud);
+        GlobalConfigurationSingleton.getInstance().setLongitud(Double.parseDouble(edLongitud.getText().toString()));
+
+        EditText edDistancia = (EditText)findViewById(R.id.EditTextDistancia);
+        GlobalConfigurationSingleton.getInstance().setDistancia(Double.parseDouble(edDistancia.getText().toString()));
+
 
         Toast.makeText(this.getBaseContext(), "Guardado",Toast.LENGTH_LONG).show();
     }

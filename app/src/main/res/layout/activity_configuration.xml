@@ -24,7 +24,6 @@
         android:layout_below="@+id/TextViewTitleStartAction"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:editable="true"
         android:enabled="true"
         android:focusable="true">
     </EditText>
@@ -42,20 +41,93 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:layout_width="fill_parent"
+        android:enabled="true"
+        android:focusable="true"
         android:layout_below="@+id/TextViewTitleGetHistoricalData"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:editable="true"
-        android:enabled="true"
-        android:focusable="true">
+        android:layout_alignParentStart="true">
     </EditText>
+
+
+    <TextView
+        android:id="@+id/TextViewLatitud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Latitud"
+        android:textSize="10pt"
+        android:layout_below="@+id/EditTextNameGetHistoricalData"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </TextView>
+    <EditText
+        android:id="@+id/EditTextLatitud"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:layout_width="fill_parent"
+        android:enabled="true"
+        android:focusable="true"
+        android:layout_below="@+id/TextViewLatitud"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </EditText>
+
+
+
+    <TextView
+        android:id="@+id/TextViewLongitud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Longitud"
+        android:textSize="10pt"
+        android:layout_below="@+id/EditTextLatitud"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </TextView>
+    <EditText
+        android:id="@+id/EditTextLongitud"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:layout_width="fill_parent"
+        android:enabled="true"
+        android:focusable="true"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </EditText>
+
+
+    <TextView
+        android:id="@+id/TextViewDistancia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Distancia"
+        android:textSize="10pt"
+        android:layout_below="@+id/EditTextLongitud"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </TextView>
+    <EditText
+        android:id="@+id/EditTextDistancia"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:layout_width="fill_parent"
+        android:enabled="true"
+        android:focusable="true"
+        android:layout_below="@+id/TextViewDistancia"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </EditText>
+
+
     <TextView
         android:id="@+id/TextViewTitleUmbralesRiego"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Umbral de Riego"
-        android:layout_below="@+id/EditTextNameGetHistoricalData"
-        android:textSize="10pt">
+        android:textSize="10pt"
+        android:layout_below="@+id/EditTextDistancia"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
     </TextView>
     <Spinner
         android:id="@+id/SpinnerUmbralesRiego"
@@ -64,8 +136,8 @@
         android:layout_width="fill_parent"
         android:entries="@array/umbralesRiego"
         android:layout_below="@+id/TextViewTitleUmbralesRiego"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
     </Spinner>
 
     <Button
@@ -73,10 +145,9 @@
         android:layout_height="wrap_content"
         android:text="Guardar"
         android:id="@+id/button"
-        android:layout_below="@+id/SpinnerUmbralesRiego"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="83dp"
         android:enabled="true"
-        android:onClick="saveConfigurationAction" />
+        android:onClick="saveConfigurationAction"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

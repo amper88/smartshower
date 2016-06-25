@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.amper.smartshower.util.GlobalConfigurationSingleton;
+
 /**
  * Created by amper on 17/06/16.
  */
@@ -32,10 +34,9 @@ public class RiegosLocationListener implements LocationListener{
     public void onLocationChanged(Location loc) {
             loc.getLatitude();
             loc.getLongitude();
-            double latitud=-34.5992234;
-            double longitud=-58.5563815;
-
-            double distancia = 0;
+            double latitud = GlobalConfigurationSingleton.getInstance().getLatitud();
+            double longitud= GlobalConfigurationSingleton.getInstance().getLongitud();;
+            double distancia = GlobalConfigurationSingleton.getInstance().getDistancia();
 
 
             //aca habria que consumir las coordenadas de la placa
