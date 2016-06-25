@@ -10,6 +10,7 @@ import android.widget.ListView;
 import com.amper.smartshower.rest.RestUtil;
 import com.amper.smartshower.rest.Riego;
 import com.amper.smartshower.util.DateComparator;
+import com.amper.smartshower.util.GlobalConfigurationSingleton;
 import com.amper.smartshower.util.Util;
 
 import org.json.JSONArray;
@@ -22,9 +23,9 @@ import java.util.List;
 
 public class HistoricalActivity extends Activity {
     protected List<Riego> doObtenerRiegos() throws Exception{
-        String data = RestUtil.getJSON(Util.URL_GET_RIEGOS, 3000);
+        String data = RestUtil.getJSON(GlobalConfigurationSingleton.getInstance().getUrlGetRiegos(), 3000);
 
-        Log.d("obtenerRiegos", "TERMINE GET JSON");
+        Log.d("obtenerRiegos", "TERMINE GET JSON EN:"+GlobalConfigurationSingleton.getInstance().getUrlGetRiegos());
 
         if(data == null){
             throw new Exception("Request Failed");

@@ -16,6 +16,7 @@ import android.util.Log;
 
 import com.amper.smartshower.rest.RestUtil;
 import com.amper.smartshower.rest.Riego;
+import com.amper.smartshower.util.GlobalConfigurationSingleton;
 import com.amper.smartshower.util.Util;
 
 import java.net.HttpURLConnection;
@@ -56,8 +57,8 @@ public class RegarAhoraActivity extends Activity {
         wv.loadUrl("file:///android_asset/regando.gif");
 
 
-        String data = RestUtil.getJSON(Util.URL_START_ACTION, 3000);
-        Log.d("doRegarAhora", "TERMINE GET JSON");
+        String data = RestUtil.getJSON(GlobalConfigurationSingleton.getInstance().getUrlStartAction(), 3000);
+        Log.d("doRegarAhora", "TERMINE GET JSON EN:"+GlobalConfigurationSingleton.getInstance().getUrlStartAction());
         if(data == null){
             Log.d("doRegarAhora", "REQUEST FAILED");
         }

@@ -14,8 +14,6 @@ import java.util.List;
 public class Util {
     //public static final String URL_GET_RIEGOS  = "https://api.myjson.com/bins/55o3e";
     //public static final String KEY_RIEGOS_LIST = "riegos";
-    public static final String URL_GET_RIEGOS  = "http://192.168.0.12:8080/getHistoricalData";
-    public static final String URL_START_ACTION  = "http://192.168.0.12:8080/startAction";
     public static final String KEY_RIEGOS_LIST = "content";
 
     public static Date getDate(String dateStr){

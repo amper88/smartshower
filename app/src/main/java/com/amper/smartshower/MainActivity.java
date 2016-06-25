@@ -107,8 +107,8 @@ public class MainActivity extends AppCompatActivity
         }else if (id == R.id.nav_grafico) {
             intent = new Intent(this, GraficoActivity.class);
         }
-        else if (id == R.id.nav_periodos) {
-            //intent = new Intent(this, PeriodosActivity.class);
+        else if (id == R.id.nav_configuration) {
+            intent = new Intent(this, ConfigurationActivity.class);
         }
 
         startActivity(intent);

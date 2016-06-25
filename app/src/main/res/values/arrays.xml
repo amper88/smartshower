@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="umbralesRiego">
+        <item>@string/Umbral1</item>
+        <item>@string/Umbral2</item>
+        <item>@string/Umbral3</item>
+        <item>@string/Umbral4</item>
+    </string-array>
+</resources>

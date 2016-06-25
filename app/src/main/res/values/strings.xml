@@ -8,12 +8,18 @@
     <string name="title_activity_regar">RegarActivity</string>
 
 
-
     <string name="id_label">The ID is</string>
     <string name="id_value">[id]</string>
     <string name="content_label">The Content is</string>
     <string name="content_value">[content]</string>
     <string name="action_refresh">Refresh</string>
 
+
+    <!--Other string resources also defined in this file… -->
+    <string name="umbralRiego"></string>
+    <string name="Umbral1">Chico</string>
+    <string name="Umbral2">Mediano</string>
+    <string name="Umbral3">Grande</string>
+    <string name="Umbral4">Mas Grande</string>
 
 </resources>
