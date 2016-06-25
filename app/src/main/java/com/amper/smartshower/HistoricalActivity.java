@@ -1,11 +1,9 @@
 package com.amper.smartshower;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.amper.smartshower.rest.RestUtil;
 import com.amper.smartshower.rest.Riego;
@@ -28,7 +26,12 @@ public class HistoricalActivity extends Activity {
         Log.d("obtenerRiegos", "TERMINE GET JSON EN:"+GlobalConfigurationSingleton.getInstance().getUrlGetRiegos());
 
         if(data == null){
-            throw new Exception("Request Failed");
+            //throw new Exception("Request Failed");
+            Toast toast = Toast.makeText(getBaseContext(),
+                        "Error de conexión. Compruebe su su configuración. Saliendo. ", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+            toast.show();
+            this.finish();
         }
 
         try {

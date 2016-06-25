@@ -1,35 +1,22 @@
 package com.amper.smartshower;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.WindowManager;
-import android.widget.RelativeLayout;
 
-import com.amper.smartshower.rest.RestUtil;
 import com.amper.smartshower.rest.Riego;
 import com.amper.smartshower.util.DateComparator;
-import com.amper.smartshower.util.Util;
+
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.android.gms.common.api.GoogleApiClient;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-public class GraficoActivity extends HistoricalActivity implements OnChartValueSelectedListener {
+public class GraficoActivity extends HistoricalActivity {
 
     protected BarChart grafica;
     private List<Riego> riegos;
@@ -40,16 +27,6 @@ public class GraficoActivity extends HistoricalActivity implements OnChartValueS
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                                  WindowManager.LayoutParams.FLAG_FULLSCREEN);
             setContentView(R.layout.activity_grafico);
-
-  /*        riegos = new ArrayList<Riego>();
-
-            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.25 13.07.11")));
-            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.22 13.07.11")));
-            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.23 13.07.11")));
-            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.23 13.07.11")));
-            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.23 13.07.11")));
-            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.25 13.07.11")));
-*/
 
             //Creamos la grafica vacia
             grafica = new BarChart(this);
@@ -70,26 +47,22 @@ public class GraficoActivity extends HistoricalActivity implements OnChartValueS
     }
 
 
-    @Override
-    public void onValueSelected(Entry entry, int i, Highlight highlight) {
-
-    }
-
-    @Override
-    public void onNothingSelected() {
-
-    }
-
     public BarData getData(){
         try {
+  /*        riegos = new ArrayList<Riego>();
+
+            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.25 13.07.11")));
+            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.22 13.07.11")));
+            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.23 13.07.11")));
+            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.23 13.07.11")));
+            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.23 13.07.11")));
+            riegos.add(new Riego(new String("1"),new String("Medicion 1"),new String( "2016.05.25 13.07.11")));
+*/
+
 
                 riegos = doObtenerRiegos();
 
-                //Comparator<Integer> comparador = Collections.reverseOrder();
-            //Collections.sort(arrayListInt, comparador);
-
                 Collections.sort(riegos,new DateComparator());
-            //Collections.sort(riegos,comparador);
 
                 Riego auxRiego = riegos.get(0);
                 int cantMeasurementDay = 0;
@@ -149,14 +122,9 @@ public class GraficoActivity extends HistoricalActivity implements OnChartValueS
         //Seteo el color de fondo para que se ve al texto
         grafica.setBackgroundColor(ColorTemplate.rgb("#C0C0C0"));
         grafica.isAutoScaleMinMaxEnabled();
+        grafica.setDrawGridBackground(false);
 
-        //Aplicamos una animación al eje Y
-        grafica.animateXY(5000, 5000);
-
-        // scaling can now only be done on x- and y-axis separately
-        grafica.setPinchZoom(true);
-
-        //Guardar el gráfico como jpg en la SD
+         //Guardar el gráfico como jpg en la SD
         /*if(this.permissionLoadOk == true) {
             grafica.isSaveEnabled();
             grafica.saveToGallery("riegoExample.jpg", 85);
@@ -171,6 +139,7 @@ public class GraficoActivity extends HistoricalActivity implements OnChartValueS
 
     @Override
     public void onStop() {
+
         super.onStop();
     }
 }
