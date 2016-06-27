@@ -1,6 +1,7 @@
 package com.amper.smartshower.location;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.amper.smartshower.GraficoActivity;
 import com.amper.smartshower.util.GlobalConfigurationSingleton;
 
 /**
@@ -17,6 +19,7 @@ public class RiegosLocationListener implements LocationListener{
 
     private final Context appContext;
     private static RiegosLocationListener listenerInstance;
+    private boolean fuelanzada = false;
 
     public static RiegosLocationListener getInstance() {
         return listenerInstance;
@@ -55,10 +58,10 @@ public class RiegosLocationListener implements LocationListener{
             //Toast.makeText(getApplicationContext(), "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude() +" Distancia: "+String.format("%.5f",distancia*1000)+"mts.",Toast.LENGTH_LONG).show();
             //muestro en pantalla mis coordenadas y la distancia
 
-           if(distanciacalc <= distancia && fuelanzada==0){
+           if(distanciacalc <= distancia && !fuelanzada){
           //-3459908042
           //-58.55627303
-             fuelanzada=1;
+             fuelanzada=true;
                /*ActivityManager am = (ActivityManager)appContext.getSystemService(Context.ACTIVITY_SERVICE);
 
 
@@ -76,7 +79,7 @@ public class RiegosLocationListener implements LocationListener{
                appContext.startActivity(i);
                Log.d("onLocationChanged", "lanza Grafico");
            }
-            Toast.makeText(this.appContext, "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude() +" Distancia: "+distanciacalc+"mts.",Toast.LENGTH_LONG).show();
+            //Toast.makeText(this.appContext, "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude() +" Distancia: "+distanciacalc+"mts.",Toast.LENGTH_LONG).show();
             Log.d("onLocationChanged", "MOVIENDOOOO " + "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude() +" Distancia: "+distancia+"mts.");
 
 
