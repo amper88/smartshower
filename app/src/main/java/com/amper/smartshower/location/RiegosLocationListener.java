@@ -31,13 +31,14 @@ public class RiegosLocationListener implements LocationListener{
         appContext = context;
     }
 
-    public void onLocationChanged(Location loc) {
+    
+  public void onLocationChanged(Location loc) {
             loc.getLatitude();
             loc.getLongitude();
             double latitud = GlobalConfigurationSingleton.getInstance().getLatitud();
             double longitud= GlobalConfigurationSingleton.getInstance().getLongitud();;
             double distancia = GlobalConfigurationSingleton.getInstance().getDistancia();
-
+            double distanciacalc = 0;
 
             //aca habria que consumir las coordenadas de la placa
             Location Locationplaca = new Location( "Location Placa");
@@ -49,17 +50,39 @@ public class RiegosLocationListener implements LocationListener{
 
 
             //Calculo la distancia en metros
-            distancia=loc.distanceTo(Locationplaca);
+            distanciacalc=loc.distanceTo(Locationplaca);
 
             //Toast.makeText(getApplicationContext(), "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude() +" Distancia: "+String.format("%.5f",distancia*1000)+"mts.",Toast.LENGTH_LONG).show();
             //muestro en pantalla mis coordenadas y la distancia
 
-            Toast.makeText(this.appContext, "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude() +" Distancia: "+distancia+"mts.",Toast.LENGTH_LONG).show();
+           if(distanciacalc <= distancia && fuelanzada==0){
+          //-3459908042
+          //-58.55627303
+             fuelanzada=1;
+               /*ActivityManager am = (ActivityManager)appContext.getSystemService(Context.ACTIVITY_SERVICE);
+
+
+               ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
+
+                Log.d("onLocationChanged","Valor que trae el running task:"+cn.getClassName());
+               if(!cn.getClassName().equals("com.amper.smartshower.GraficoActivity")) {
+                   Intent i = new Intent(this.appContext, GraficoActivity.class);
+                   i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                   appContext.startActivity(i);
+                   Log.d("onLocationChanged", "lanza activity");
+               }*/
+               Intent i = new Intent(this.appContext, GraficoActivity.class);
+               i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+               appContext.startActivity(i);
+               Log.d("onLocationChanged", "lanza Grafico");
+           }
+            Toast.makeText(this.appContext, "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude() +" Distancia: "+distanciacalc+"mts.",Toast.LENGTH_LONG).show();
             Log.d("onLocationChanged", "MOVIENDOOOO " + "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude() +" Distancia: "+distancia+"mts.");
 
 
         }
 
+   
         public void onProviderDisabled(String provider) {
             Toast.makeText(this.appContext, "Gps Desactivado", Toast.LENGTH_SHORT).show();
         }
