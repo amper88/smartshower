@@ -36,6 +36,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/webViewRegando"
         android:layout_below="@+id/txtRegando"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>
