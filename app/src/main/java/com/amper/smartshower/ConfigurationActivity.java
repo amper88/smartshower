@@ -3,6 +3,7 @@ package com.amper.smartshower;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -29,6 +30,9 @@ public class ConfigurationActivity extends Activity {
 
         EditText edDistancia = (EditText) findViewById(R.id.EditTextDistancia);
         edDistancia.setText(""+GlobalConfigurationSingleton.getInstance().getDistancia());
+
+        CheckBox chkCoord =(CheckBox) findViewById(R.id.showCoordenadas);
+        chkCoord.setChecked(GlobalConfigurationSingleton.getInstance().getShowCoordenadas());
     }
 
     public void saveConfigurationAction(View v) {
@@ -46,6 +50,10 @@ public class ConfigurationActivity extends Activity {
 
         EditText edDistancia = (EditText)findViewById(R.id.EditTextDistancia);
         GlobalConfigurationSingleton.getInstance().setDistancia(Double.parseDouble(edDistancia.getText().toString()));
+
+        CheckBox chkCoord =(CheckBox) findViewById(R.id.showCoordenadas);
+        GlobalConfigurationSingleton.getInstance().setShowCoordenadas(chkCoord.isChecked());
+
 
 
         Toast.makeText(this.getBaseContext(), "Guardado",Toast.LENGTH_LONG).show();

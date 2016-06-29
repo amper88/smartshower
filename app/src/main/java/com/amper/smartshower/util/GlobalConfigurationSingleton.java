@@ -14,6 +14,8 @@ public class GlobalConfigurationSingleton {
     private double longitud;
     private double distancia;
 
+    private boolean showCoordenadas;
+
     // Set default Riegos values and restrict the constructor from being instantiated
     private GlobalConfigurationSingleton(){
         this.urlGetRiegos    = "http://192.168.0.12:8080/getHistoricalData";
@@ -22,6 +24,8 @@ public class GlobalConfigurationSingleton {
         this.latitud   = -34.5992234;
         this.longitud  = -58.5563815;
         this.distancia = 0;
+
+        this.showCoordenadas = false;
     }
 
     // Getters & Setters
@@ -55,7 +59,10 @@ public class GlobalConfigurationSingleton {
     public double getDistancia(){
         return this.distancia;
     }
-
+    public boolean getShowCoordenadas(){return this.showCoordenadas;};
+    public void setShowCoordenadas(boolean d){
+        this.showCoordenadas=d;
+    }
 
     // GetInstance
     public static synchronized GlobalConfigurationSingleton getInstance(){

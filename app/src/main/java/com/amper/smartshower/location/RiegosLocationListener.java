@@ -20,6 +20,8 @@ public class RiegosLocationListener implements LocationListener{
     private final Context appContext;
     private static RiegosLocationListener listenerInstance;
     private boolean fuelanzada = false;
+    private Toast msgCoordenadas = null;
+
 
     public static RiegosLocationListener getInstance() {
         return listenerInstance;
@@ -58,28 +60,26 @@ public class RiegosLocationListener implements LocationListener{
             //Toast.makeText(getApplicationContext(), "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude() +" Distancia: "+String.format("%.5f",distancia*1000)+"mts.",Toast.LENGTH_LONG).show();
             //muestro en pantalla mis coordenadas y la distancia
 
-           if(distanciacalc <= distancia && !fuelanzada){
-          //-3459908042
-          //-58.55627303
-             fuelanzada=true;
-               /*ActivityManager am = (ActivityManager)appContext.getSystemService(Context.ACTIVITY_SERVICE);
+           if(distanciacalc <= distancia && !this.fuelanzada){
+               this.fuelanzada=true;
 
-
-               ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
-
-                Log.d("onLocationChanged","Valor que trae el running task:"+cn.getClassName());
-               if(!cn.getClassName().equals("com.amper.smartshower.GraficoActivity")) {
-                   Intent i = new Intent(this.appContext, GraficoActivity.class);
-                   i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                   appContext.startActivity(i);
-                   Log.d("onLocationChanged", "lanza activity");
-               }*/
                Intent i = new Intent(this.appContext, GraficoActivity.class);
                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                appContext.startActivity(i);
                Log.d("onLocationChanged", "lanza Grafico");
            }
-            //Toast.makeText(this.appContext, "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude() +" Distancia: "+distanciacalc+"mts.",Toast.LENGTH_LONG).show();
+
+            if(GlobalConfigurationSingleton.getInstance().getShowCoordenadas()) {
+                if(msgCoordenadas == null){
+                    msgCoordenadas = Toast.makeText(this.appContext, "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude() +" Distancia: "+distanciacalc+"mts.",Toast.LENGTH_LONG);
+                }
+
+                msgCoordenadas.setText("Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude() +" Distancia: "+distanciacalc+"mts.");
+                msgCoordenadas.show();
+            }else{
+                msgCoordenadas.cancel();
+            }
+
             Log.d("onLocationChanged", "MOVIENDOOOO " + "Mis coordenadas son: " + "Latitud = " + loc.getLatitude() + "Longitud = " + loc.getLongitude() +" Distancia: "+distancia+"mts.");
 
 

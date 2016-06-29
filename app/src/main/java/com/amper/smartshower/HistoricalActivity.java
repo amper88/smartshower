@@ -24,11 +24,10 @@ public class HistoricalActivity extends Activity {
         String data = RestUtil.getJSON(GlobalConfigurationSingleton.getInstance().getUrlGetRiegos(), 3000);
 
         Log.d("obtenerRiegos", "TERMINE GET JSON EN:"+GlobalConfigurationSingleton.getInstance().getUrlGetRiegos());
-
-        if(data == null){
+        if(data == null || data.toString().toLowerCase().contains("not found")){
             //throw new Exception("Request Failed");
             Toast toast = Toast.makeText(getBaseContext(),
-                        "Error de conexión. Compruebe su su configuración. Saliendo. ", Toast.LENGTH_LONG);
+                        "Error de conexión. Compruebe su configuración. Saliendo. ", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
             toast.show();
             this.finish();
